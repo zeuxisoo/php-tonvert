@@ -1,0 +1,12 @@
+{
+    "type": "library",
+    "require": {
+        "symfony/console": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tonvert\\": "src/Tonvert"
+        }
+    },
+    "bin": ["bin/tonvert"]
+}
