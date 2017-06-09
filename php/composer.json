@@ -8,5 +8,8 @@
             "Tonvert\\": "src/Tonvert"
         }
     },
-    "bin": ["bin/tonvert"]
+    "bin": ["bin/tonvert"],
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    }
 }
