@@ -1,0 +1,1 @@
+(subtract 2017 "ff68" (add 6 10))
