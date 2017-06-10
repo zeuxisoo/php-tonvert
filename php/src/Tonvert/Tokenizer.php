@@ -7,27 +7,25 @@ class Tokenizer {
 
     public function take(string $inPath) {
         $tokenes       = [];
-        $content       = trim(file_get_contents($inPath));
-        $current       = 0;
-        $contentLength = strlen($content);
+        $charGenerator = $this->toCharGenerator($inPath);
 
-        while($current < $contentLength) {
-            $char = $content[$current];
+        while($charGenerator->valid() === true) {
+            $char = $charGenerator->current();
 
             if ($this->isWhiteSpace($char) == true) {
-                $current++;
+                $charGenerator->next();
                 continue;
             }
 
             if ($this->isParenthesesOpen($char) == true) {
                 array_push($tokenes, new Token(Token::TYPE_PARENTHESES_OPEN, '('));
-                $current++;
+                $charGenerator->next();
                 continue;
             }
 
             if ($this->isParenthesesClose($char) == true) {
                 array_push($tokenes, new Token(Token::TYPE_PARENTHESES_CLOSE, ')'));
-                $current++;
+                $charGenerator->next();
                 continue;
             }
 
@@ -36,7 +34,10 @@ class Tokenizer {
 
                 while($this->isAlphabet($char) == true) {
                     array_push($alphabets, $char);
-                    $char = $content[++$current];
+
+                    $charGenerator->next();
+
+                    $char = $charGenerator->current();
                 }
 
                 array_push($tokenes, new Token(Token::TYPE_NAME, implode('', $alphabets)));
@@ -49,7 +50,10 @@ class Tokenizer {
 
                 while($this->isNumber($char) == true) {
                     array_push($numbers, $char);
-                    $char = $content[++$current];
+
+                    $charGenerator->next();
+
+                    $char = $charGenerator->current();
                 }
 
                 array_push($tokenes, new Token(Token::TYPE_NUMBER, implode('', $numbers)));
@@ -58,17 +62,26 @@ class Tokenizer {
             }
 
             if ($this->isDoubleQuote($char) == true) {
-                $text = [];                     // Skip open doublue quote
-                $char = $content[++$current];   // Start record string
+                $text = [];
+
+                // Skip open doublue quote
+                $charGenerator->next();
+
+                // Start record string
+                $char = $charGenerator->current();
 
                 while($char != '"') {
                     array_push($text, $char);
-                    $char = $content[++$current];
+
+                    $charGenerator->next();
+
+                    $char = $charGenerator->current();
                 }
 
                 array_push($tokenes, new Token(Token::TYPE_STRING, implode('', $text)));
 
-                $current++; // Skip close double quote
+                // Skip close double quote
+                $charGenerator->next();
 
                 continue;
             }
@@ -77,6 +90,14 @@ class Tokenizer {
         }
 
         return $tokenes;
+    }
+
+    private function toCharGenerator($inFile) {
+        $file = fopen($inFile, 'r');
+        while(($char = fgetc($file)) !== false) {
+            yield $char;
+        }
+        fclose($file);
     }
 
     private function isWhiteSpace($char) {
