@@ -4,6 +4,7 @@ namespace Tonvert\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Tonvert\Tokenizer;
 
 /**
  * Usage
@@ -37,6 +38,8 @@ class TranCommand extends BaseCommand {
             $this->error("Input file path: {$in} could not be open");
             return 1;
         }
+
+        $tokenes = (new Tokenizer())->take($in);
     }
 
 }
