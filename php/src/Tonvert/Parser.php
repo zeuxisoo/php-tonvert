@@ -3,21 +3,19 @@ namespace Tonvert;
 
 use ArrayIterator;
 use Tonvert\Model\Token;
+use Tonvert\Model\Node;
 
 class Parser {
 
     public function parse(array $tokenes) {
-        $ast = [
-            'type' => 'Program',
-            'body' => [],
-        ];
+        $ast = Node::factory(Node::TYPE_PROGRAM);
 
         $tokenGenerator = $this->toTokenGenerator($tokenes);
 
         while($tokenGenerator->valid() === true) {
             $token = $tokenGenerator->current();
 
-            array_push($ast['body'], $this->walk($token, $tokenGenerator));
+            $ast->addBody($this->walk($token, $tokenGenerator));
 
             $tokenGenerator->next();
         }
@@ -31,17 +29,11 @@ class Parser {
 
     private function walk($token, $tokenGenerator) {
         if ($token->getName() === Token::TYPE_NUMBER) {
-            return [
-                'type'  => 'NumberLiteral',
-                'value' => $token->getValue(),
-            ];
+            return Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue($token->getValue());
         }
 
         if ($token->getName() === Token::TYPE_STRING) {
-            return [
-                'type'  => 'StringLiteral',
-                'value' => $token->getValue(),
-            ];
+            return Node::factory(Node::TYPE_STRING_LITERAL)->setValue($token->getValue());
         }
 
         if ($token->getName() === Token::TYPE_PARENTHESES_OPEN) {
@@ -74,11 +66,9 @@ class Parser {
                 // Skip the close parenthes
                 $tokenGenerator->next();
 
-                return [
-                    'type' => 'CallExpression',
-                    'name' => $token->getValue(),
-                    'params' => $params,
-                ];
+                return Node::factory(Node::TYPE_CALL_EXPRESSION)
+                        ->setName($token->getValue())
+                        ->setParams($params);
             }
         }
     }
