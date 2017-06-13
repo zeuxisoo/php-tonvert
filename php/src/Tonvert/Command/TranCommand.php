@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Tonvert\Tokenizer;
+use Tonvert\Parser;
 
 /**
  * Usage
@@ -40,6 +41,7 @@ class TranCommand extends BaseCommand {
         }
 
         $tokenes = (new Tokenizer())->take($in);
+        $ast     = (new Parser())->parse($tokenes);
     }
 
 }
