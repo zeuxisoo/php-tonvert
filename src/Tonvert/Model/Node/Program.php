@@ -7,7 +7,7 @@ class Program extends NodeType {
 
     private $body = [];
 
-    public function addBody($body) {
+    public function addBody(NodeType $body) {
         array_push($this->body, $body);
     }
 
