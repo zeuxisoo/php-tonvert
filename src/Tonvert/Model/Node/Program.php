@@ -1,7 +1,9 @@
 <?php
 namespace Tonvert\Model\Node;
 
-class Program extends Type {
+use Tonvert\Model\Node\Type as NodeType;
+
+class Program extends NodeType {
 
     private $body = [];
 
