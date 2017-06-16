@@ -1,7 +1,7 @@
 <?php
 namespace Tonvert\Model;
 
-class TransformedNote {
+class TransformedNode {
 
     const TYPE_PROGRAM              = 'program';
     const TYPE_EXPRESSION_STATEMENT = 'expression_statement';
@@ -30,7 +30,7 @@ class TransformedNote {
                 break;
         }
 
-        $className = __namespace__."\\TransformedNote\\".$name;
+        $className = __namespace__."\\TransformedNode\\".$name;
 
         return new $className();
     }

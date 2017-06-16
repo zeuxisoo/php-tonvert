@@ -1,9 +1,9 @@
 <?php
-namespace Tonvert\Model\TransformedNote;
+namespace Tonvert\Model\TransformedNode;
 
-use Tonvert\Model\TransformedNote\Type as TransformedNoteType;
+use Tonvert\Model\TransformedNode\Type as TransformedNodeType;
 
-class CallExpression extends TransformedNoteType {
+class CallExpression extends TransformedNodeType {
 
     private $callee    = '';
     private $arguments = [];

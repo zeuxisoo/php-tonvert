@@ -1,9 +1,9 @@
 <?php
-namespace Tonvert\Model\TransformedNote;
+namespace Tonvert\Model\TransformedNode;
 
-use Tonvert\Model\TransformedNote\Type as TransformedNoteType;
+use Tonvert\Model\TransformedNode\Type as TransformedNodeType;
 
-class ExpressionStatement extends TransformedNoteType {
+class ExpressionStatement extends TransformedNodeType {
 
     private $expression;
 

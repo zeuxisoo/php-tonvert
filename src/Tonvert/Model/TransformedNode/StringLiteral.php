@@ -1,9 +1,9 @@
 <?php
-namespace Tonvert\Model\TransformedNote;
+namespace Tonvert\Model\TransformedNode;
 
-use Tonvert\Model\TransformedNote\Type as TransformedNoteType;
+use Tonvert\Model\TransformedNode\Type as TransformedNodeType;
 
-class StringLiteral extends TransformedNoteType {
+class StringLiteral extends TransformedNodeType {
 
     private $value = '';
 

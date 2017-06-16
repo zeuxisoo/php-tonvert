@@ -6,7 +6,7 @@ use Tonvert\Model\Node\Program as NodeProgram;
 use Tonvert\Model\Node\NumberLiteral as NodeNumberLiteral;
 use Tonvert\Model\Node\StringLiteral as NodeStringLiteral;
 use Tonvert\Model\Node\CallExpression as NodeCallExpression;
-use Tonvert\Model\TransformedNote;
+use Tonvert\Model\TransformedNode;
 
 class Transformer {
 
@@ -14,7 +14,7 @@ class Transformer {
     const VISITOR_EXIT  = 'exit';
 
     public function transform(NodeType $ast) {
-        $newAst   = TransformedNote::factory(TransformedNote::TYPE_PROGRAM);
+        $newAst   = TransformedNode::factory(TransformedNode::TYPE_PROGRAM);
         $body     = null;
         $visitors = [
             NodeNumberLiteral::class => [
@@ -22,7 +22,7 @@ class Transformer {
                     if ($node instanceof NodeNumberLiteral) {
                         $addArgumentAction = $parent->_addArgumentAction;
                         $addArgumentAction(
-                            TransformedNote::factory(TransformedNote::TYPE_NUMBER_LITERAL)
+                            TransformedNode::factory(TransformedNode::TYPE_NUMBER_LITERAL)
                                 ->setValue($node->getValue())
                         );
                     }
@@ -36,7 +36,7 @@ class Transformer {
                     if ($node instanceof NodeStringLiteral) {
                         $addArgumentAction = $parent->_addArgumentAction;
                         $addArgumentAction(
-                            TransformedNote::factory(TransformedNote::TYPE_STRING_LITERAL)
+                            TransformedNode::factory(TransformedNode::TYPE_STRING_LITERAL)
                                 ->setValue($node->getValue())
                         );
                     }
@@ -48,7 +48,7 @@ class Transformer {
             NodeCallExpression::class => [
                 static::VISITOR_ENTER => function(NodeType $node, $parent, &$body) {
                     if ($node instanceof NodeCallExpression) {
-                        $expression = TransformedNote::factory(TransformedNote::TYPE_CALL_EXPRESSION)
+                        $expression = TransformedNode::factory(TransformedNode::TYPE_CALL_EXPRESSION)
                                         ->setCallee($node->getName())
                                         ->setArguments([]);
 
@@ -67,7 +67,7 @@ class Transformer {
 
                         // If the parent is not CallExpression node, so all node should under it
                         if (($parent instanceof NodeCallExpression) === false) {
-                            $expression = TransformedNote::factory(TransformedNote::TYPE_EXPRESSION_STATEMENT)
+                            $expression = TransformedNode::factory(TransformedNode::TYPE_EXPRESSION_STATEMENT)
                                             ->setExpression($expression);
 
                             // Update the new ast body once
