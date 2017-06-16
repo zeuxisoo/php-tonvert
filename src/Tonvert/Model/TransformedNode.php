@@ -8,6 +8,7 @@ class TransformedNode {
     const TYPE_CALL_EXPRESSION      = 'call_expression';
     const TYPE_STRING_LITERAL       = 'string_literal';
     const TYPE_NUMBER_LITERAL       = 'number_literal';
+    const TYPE_IDENTIFIER           = 'identifier';
 
     public static function factory($type) {
         $name = "";
@@ -21,6 +22,9 @@ class TransformedNode {
                 break;
             case static::TYPE_STRING_LITERAL:
                 $name = "StringLiteral";
+                break;
+            case static::TYPE_IDENTIFIER:
+                $name = "Identifier";
                 break;
             case static::TYPE_EXPRESSION_STATEMENT:
                 $name = "ExpressionStatement";

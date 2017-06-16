@@ -24,12 +24,16 @@ class TransformerTest extends TestCase {
             TransformedNode::factory(TransformedNode::TYPE_EXPRESSION_STATEMENT)
                 ->setExpression(
                     TransformedNode::factory(TransformedNode::TYPE_CALL_EXPRESSION)
-                        ->setCallee("subtract")
+                        ->setCallee(
+                            TransformedNode::factory(TransformedNode::TYPE_IDENTIFIER)->setName("subtract")
+                        )
                         ->setArguments([
                             TransformedNode::factory(TransformedNode::TYPE_NUMBER_LITERAL)->setValue(2017),
                             TransformedNode::factory(TransformedNode::TYPE_STRING_LITERAL)->setValue("ff68"),
                             TransformedNode::factory(TransformedNode::TYPE_CALL_EXPRESSION)
-                                ->setCallee("add")
+                                ->setCallee(
+                                    TransformedNode::factory(TransformedNode::TYPE_IDENTIFIER)->setName("add")
+                                )
                                 ->setArguments([
                                     TransformedNode::factory(TransformedNode::TYPE_NUMBER_LITERAL)->setValue(6),
                                     TransformedNode::factory(TransformedNode::TYPE_NUMBER_LITERAL)->setValue(10),

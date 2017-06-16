@@ -49,7 +49,10 @@ class Transformer {
                 static::VISITOR_ENTER => function(NodeType $node, $parent, &$body) {
                     if ($node instanceof NodeCallExpression) {
                         $expression = TransformedNode::factory(TransformedNode::TYPE_CALL_EXPRESSION)
-                                        ->setCallee($node->getName())
+                                        ->setCallee(
+                                            TransformedNode::factory(TransformedNode::TYPE_IDENTIFIER)
+                                                ->setName($node->getName())
+                                        )
                                         ->setArguments([]);
 
                         // Create dynamically method in current node object
