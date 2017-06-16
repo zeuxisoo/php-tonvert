@@ -22,7 +22,7 @@ class CallExpression extends NodeType {
         return $this->name;
     }
 
-    public function getParams($params) {
+    public function getParams() {
         return $this->params;
     }
 
