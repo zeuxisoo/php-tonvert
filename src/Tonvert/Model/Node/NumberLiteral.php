@@ -12,7 +12,7 @@ class NumberLiteral extends NodeType {
         return $this;
     }
 
-    public function getValue($value) {
+    public function getValue() {
         return $this->value;
     }
 
