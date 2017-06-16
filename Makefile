@@ -4,6 +4,7 @@ all:
 	@echo "------------- : -------------"
 	@echo "make composer : Get composer"
 	@echo "make autoload : Dump autoload classes"
+	@echo "make test     : Do test case"
 	@echo ""
 
 composer:
@@ -11,3 +12,6 @@ composer:
 
 autoload:
 	@php composer.phar dumpautoload
+
+test:
+	@php ./vendor/bin/phpunit
