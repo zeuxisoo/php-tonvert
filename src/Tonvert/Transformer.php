@@ -6,7 +6,7 @@ use Tonvert\Model\Node\Program as NodeProgram;
 use Tonvert\Model\Node\NumberLiteral as NodeNumberLiteral;
 use Tonvert\Model\Node\StringLiteral as NodeStringLiteral;
 use Tonvert\Model\Node\CallExpression as NodeCallExpression;
-use Tonvert\Model\Node;
+use Tonvert\Model\TransformedNote;
 
 class Transformer {
 
@@ -14,15 +14,17 @@ class Transformer {
     const VISITOR_EXIT  = 'exit';
 
     public function transform(NodeType $ast) {
-        $body     = [];
+        $newAst   = TransformedNote::factory(TransformedNote::TYPE_PROGRAM);
+        $body     = null;
         $visitors = [
             NodeNumberLiteral::class => [
                 static::VISITOR_ENTER => function(NodeType $node, $parent, &$body) {
                     if ($node instanceof NodeNumberLiteral) {
-                        array_push($parent->_refArguments, [
-                            'type' => 'NumberLiteral',
-                            'value' => $node->getValue()
-                        ]);
+                        $addArgumentAction = $parent->_addArgumentAction;
+                        $addArgumentAction(
+                            TransformedNote::factory(TransformedNote::TYPE_NUMBER_LITERAL)
+                                ->setValue($node->getValue())
+                        );
                     }
                 },
 
@@ -32,10 +34,11 @@ class Transformer {
             NodeStringLiteral::class => [
                 static::VISITOR_ENTER => function(NodeType $node, $parent, &$body) {
                     if ($node instanceof NodeStringLiteral) {
-                        array_push($parent->_refArguments, [
-                            'type' => 'StringLiteral',
-                            'value' => $node->getValue()
-                        ]);
+                        $addArgumentAction = $parent->_addArgumentAction;
+                        $addArgumentAction(
+                            TransformedNote::factory(TransformedNote::TYPE_STRING_LITERAL)
+                                ->setValue($node->getValue())
+                        );
                     }
                 },
 
@@ -45,31 +48,30 @@ class Transformer {
             NodeCallExpression::class => [
                 static::VISITOR_ENTER => function(NodeType $node, $parent, &$body) {
                     if ($node instanceof NodeCallExpression) {
-                        $expression = [
-                            'type'      => 'CallExpression',
-                            'callee'    => $node->getName(),
-                            'arguments' => []
-                        ];
+                        $expression = TransformedNote::factory(TransformedNote::TYPE_CALL_EXPRESSION)
+                                        ->setCallee($node->getName())
+                                        ->setArguments([]);
 
-                        // Create dynamically class member
-                        // - make it reference to $expression arguments options.
-                        // - provide a way for sub-node (like: StringLiteral, NumberLiteral) to push arguments
-                        $node->_refArguments = &$expression['arguments'];
+                        // Create dynamically method in current node object
+                        // - provide a way for the childen node to add itself to the current node to become his arguments
+                        // - childen node like StringLiteral, NumberLiteral
+                        $node->_addArgumentAction = function($argument) use ($expression) {
+                            $expression->addArgument($argument);
+                        };
 
-                        // If the parent is CallExpression node, make it to arguments
+                        // If the parent is CallExpression node, make it to become arguments
                         if ($parent instanceof NodeCallExpression) {
-                            array_push($parent->_refArguments, $expression);
+                            $addArgumentAction = $parent->_addArgumentAction;
+                            $addArgumentAction($expression);
                         }
 
                         // If the parent is not CallExpression node, so all node should under it
                         if (($parent instanceof NodeCallExpression) === false) {
-                            $expression = [
-                                'type'       => 'ExpressionStatement',
-                                'expression' => $expression,
-                            ];
+                            $expression = TransformedNote::factory(TransformedNote::TYPE_EXPRESSION_STATEMENT)
+                                            ->setExpression($expression);
 
                             // Update the new ast body once
-                            array_push($body, $expression);
+                            $body = $expression;
                         }
                     }
                 },
@@ -80,7 +82,9 @@ class Transformer {
 
         $this->traverser($ast, $body, $visitors);
 
-        return $body;
+        $newAst->addBody($body);
+
+        return $newAst;
     }
 
     private function traverser($node, &$body, $visitors) {
