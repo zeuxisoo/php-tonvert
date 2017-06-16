@@ -5,7 +5,7 @@ use Tonvert\Model\Token;
 
 class Tokenizer {
 
-    public function take(string $inPath) {
+    public function take(string $inPath): array {
         $tokenes       = [];
         $charGenerator = $this->toCharGenerator($inPath);
 
@@ -100,27 +100,27 @@ class Tokenizer {
         fclose($file);
     }
 
-    private function isWhiteSpace($char) {
+    private function isWhiteSpace($char): int {
         return preg_match('/\s/', $char);
     }
 
-    private function isParenthesesOpen($char) {
+    private function isParenthesesOpen($char): bool {
         return $char === '(';
     }
 
-    private function isParenthesesClose($char) {
+    private function isParenthesesClose($char): bool {
         return $char === ')';
     }
 
-    private function isAlphabet($char) {
+    private function isAlphabet($char): int {
         return preg_match('/[a-z]/i', $char);
     }
 
-    private function isNumber($char) {
+    private function isNumber($char): int {
         return preg_match('/[0-9]/', $char);
     }
 
-    private function isDoubleQuote($char) {
+    private function isDoubleQuote($char): bool {
         return $char === '"';
     }
 

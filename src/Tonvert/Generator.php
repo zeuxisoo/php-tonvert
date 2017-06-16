@@ -13,7 +13,7 @@ use Tonvert\Model\TransformedNode\{
 
 class Generator {
 
-    public function generate(TransformedNodeType $node) {
+    public function generate(TransformedNodeType $node): string {
         if ($node instanceof TransformedNodeProgram) {
             return array_map([$this, 'generate'], $node->getBody())[0];
         }

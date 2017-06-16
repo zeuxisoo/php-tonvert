@@ -2,14 +2,12 @@
 namespace Tonvert;
 
 use ArrayIterator;
-use Tonvert\Model\{
-    Token,
-    Node
-};
+use Tonvert\Model\{ Token, Node };
+use Tonvert\Model\Node\Type as NodeType;
 
 class Parser {
 
-    public function parse(array $tokenes) {
+    public function parse(array $tokenes): NodeType {
         $ast = Node::factory(Node::TYPE_PROGRAM);
 
         $tokenGenerator = $this->toTokenGenerator($tokenes);

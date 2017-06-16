@@ -9,13 +9,14 @@ use Tonvert\Model\Node\{
     StringLiteral as NodeStringLiteral,
     CallExpression as NodeCallExpression
 };
+use Tonvert\Model\TransformedNode\Type as TransformedNodeType;
 
 class Transformer {
 
     const VISITOR_ENTER = 'enter';
     const VISITOR_EXIT  = 'exit';
 
-    public function transform(NodeType $ast) {
+    public function transform(NodeType $ast): TransformedNodeType {
         $newAst   = TransformedNode::factory(TransformedNode::TYPE_PROGRAM);
         $body     = null;
         $visitors = [
