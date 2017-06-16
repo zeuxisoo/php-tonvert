@@ -1,11 +1,13 @@
 <?php
 namespace Tonvert\Test;
 
-use Tonvert\TestCase;
-use Tonvert\Tokenizer;
-use Tonvert\Parser;
-use Tonvert\Transformer;
-use Tonvert\Generator;
+use Tonvert\{
+    TestCase,
+    Tokenizer,
+    Parser,
+    Transformer,
+    Generator
+};
 
 class GeneratorTest extends TestCase {
 

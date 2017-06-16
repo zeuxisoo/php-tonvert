@@ -1,12 +1,14 @@
 <?php
 namespace Tonvert;
 
-use Tonvert\Model\Node\Type as NodeType;
-use Tonvert\Model\Node\Program as NodeProgram;
-use Tonvert\Model\Node\NumberLiteral as NodeNumberLiteral;
-use Tonvert\Model\Node\StringLiteral as NodeStringLiteral;
-use Tonvert\Model\Node\CallExpression as NodeCallExpression;
 use Tonvert\Model\TransformedNode;
+use Tonvert\Model\Node\{
+    Type as NodeType,
+    Program as NodeProgram,
+    NumberLiteral as NodeNumberLiteral,
+    StringLiteral as NodeStringLiteral,
+    CallExpression as NodeCallExpression
+};
 
 class Transformer {
 

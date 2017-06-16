@@ -1,13 +1,15 @@
 <?php
 namespace Tonvert;
 
-use Tonvert\Model\TransformedNode\Type as TransformedNodeType;
-use Tonvert\Model\TransformedNode\Program as TransformedNodeProgram;
-use Tonvert\Model\TransformedNode\ExpressionStatement as TransformedNodeExpressionStatement;
-use Tonvert\Model\TransformedNode\CallExpression as TransformedNodeCallExpression;
-use Tonvert\Model\TransformedNode\Identifier as TransformedNodeIdentifier;
-use Tonvert\Model\TransformedNode\NumberLiteral as TransformedNodeNumberLiteral;
-use Tonvert\Model\TransformedNode\StringLiteral as TransformedNodeStringLiteral;
+use Tonvert\Model\TransformedNode\{
+    Type as TransformedNodeType,
+    Program as TransformedNodeProgram,
+    ExpressionStatement as TransformedNodeExpressionStatement,
+    CallExpression as TransformedNodeCallExpression,
+    Identifier as TransformedNodeIdentifier,
+    NumberLiteral as TransformedNodeNumberLiteral,
+    StringLiteral as TransformedNodeStringLiteral
+};
 
 class Generator {
 

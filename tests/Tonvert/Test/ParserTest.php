@@ -1,9 +1,7 @@
 <?php
 namespace Tonvert\Test;
 
-use Tonvert\TestCase;
-use Tonvert\Tokenizer;
-use Tonvert\Parser;
+use Tonvert\{ TestCase, Tokenizer, Parser };
 use Tonvert\Model\Node;
 
 class ParserTest extends TestCase {

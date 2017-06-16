@@ -2,8 +2,10 @@
 namespace Tonvert;
 
 use ArrayIterator;
-use Tonvert\Model\Token;
-use Tonvert\Model\Node;
+use Tonvert\Model\{
+    Token,
+    Node
+};
 
 class Parser {
 

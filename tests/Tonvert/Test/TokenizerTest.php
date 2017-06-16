@@ -1,8 +1,7 @@
 <?php
 namespace Tonvert\Test;
 
-use Tonvert\TestCase;
-use Tonvert\Tokenizer;
+use Tonvert\{ TestCase, Tokenizer };
 use Tonvert\Model\Token;
 
 class TokenizerTest extends TestCase {

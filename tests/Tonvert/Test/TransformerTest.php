@@ -1,10 +1,7 @@
 <?php
 namespace Tonvert\Test;
 
-use Tonvert\TestCase;
-use Tonvert\Tokenizer;
-use Tonvert\Parser;
-use Tonvert\Transformer;
+use Tonvert\{ TestCase, Tokenizer, Parser, Transformer };
 use Tonvert\Model\TransformedNode;
 
 class TransformerTest extends TestCase {

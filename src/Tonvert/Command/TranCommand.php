@@ -4,10 +4,7 @@ namespace Tonvert\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Tonvert\Tokenizer;
-use Tonvert\Parser;
-use Tonvert\Transformer;
-use Tonvert\Generator;
+use Tonvert\{ Tokenizer, Parser, Transformer, Generator };
 
 /**
  * Usage
