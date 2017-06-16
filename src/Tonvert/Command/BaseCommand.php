@@ -19,4 +19,8 @@ class BaseCommand extends Command {
         $this->output->writeln("<error>{$message}</error>");
     }
 
+    public function info(string $message) {
+        $this->output->writeln("<info>{$message}</info>");
+    }
+
 }

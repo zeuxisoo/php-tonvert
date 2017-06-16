@@ -46,6 +46,20 @@ class TranCommand extends BaseCommand {
         $ast     = (new Parser())->parse($tokenes);
         $newAst  = (new Transformer())->transform($ast);
         $code    = (new Generator())->generate($newAst);
+
+        if (empty($out) === true) {
+            $this->info($code);
+        }else{
+            $outFile = @fopen($out, 'w+');
+
+            if ($outFile === false) {
+                $this->error("Cannot write the generated code into file: ${out}");
+                return 1;
+            }
+
+            fwrite($outFile, $code);
+            fclose($outFile);
+        }
     }
 
 }
