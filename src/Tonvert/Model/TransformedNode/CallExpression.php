@@ -31,9 +31,4 @@ class CallExpression extends TransformedNodeType {
         return $this;
     }
 
-    public function __call($method, $args) {
-        echo $method,"\n";
-        exit;
-    }
-
 }
