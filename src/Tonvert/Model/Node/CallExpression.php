@@ -2,24 +2,17 @@
 namespace Tonvert\Model\Node;
 
 use Tonvert\Model\Node\Type as NodeType;
+use Tonvert\Mixin\Model\Name as ModelName;
 
 class CallExpression extends NodeType {
 
-    private $name   = '';
-    private $params = [];
+    use ModelName;
 
-    public function setName($name) {
-        $this->name = $name;
-        return $this;
-    }
+    private $params = [];
 
     public function setParams(array $params) {
         $this->params = $params;
         return $this;
-    }
-
-    public function getName() {
-        return $this->name;
     }
 
     public function getParams() {
