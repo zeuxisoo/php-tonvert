@@ -1,6 +1,6 @@
 # Tonvert
 
-Tiny program to convert a fromat to common format
+Tiny program to convert a format to common format
 
 ## Usage
 
