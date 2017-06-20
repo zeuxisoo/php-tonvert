@@ -42,10 +42,12 @@ class TranCommand extends BaseCommand {
         $tokenes = (new Tokenizer())->take($in);
         $ast     = (new Parser())->parse($tokenes);
         $newAst  = (new Transformer())->transform($ast);
-        $code    = (new Generator())->generate($newAst);
+        $codes   = (new Generator())->generate($newAst);
 
         if (empty($out) === true) {
-            $this->info($code);
+            foreach($codes as $code) {
+                $this->info($code);
+            }
         }else{
             $outFile = @fopen($out, 'w+');
 
@@ -54,7 +56,7 @@ class TranCommand extends BaseCommand {
                 return 1;
             }
 
-            fwrite($outFile, $code);
+            fwrite($outFile, implode("\n", $codes));
             fclose($outFile);
         }
     }
