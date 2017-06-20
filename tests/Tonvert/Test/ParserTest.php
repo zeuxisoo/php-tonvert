@@ -32,4 +32,44 @@ class ParserTest extends TestCase {
         $this->assertEquals($root, $ast);
     }
 
+    public function testParseMulti() {
+        $tokenizer = new Tokenizer();
+        $tokenes   = $tokenizer->take(__DIR__."/Fixtures/multi.txt");
+
+        $parser = new Parser();
+        $ast    = $parser->parse($tokenes);
+
+        $root = Node::factory(Node::TYPE_PROGRAM);
+
+        $root->addBody(
+            Node::factory(Node::TYPE_CALL_EXPRESSION)
+                ->setName("add")
+                ->setParams([
+                    Node::factory(Node::TYPE_CALL_EXPRESSION)
+                        ->setName("subtract")
+                        ->setParams([
+                            Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue(2017),
+                            Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue(6),
+                        ]),
+                    Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue(19),
+                ])
+        );
+
+        $root->addBody(
+            Node::factory(Node::TYPE_CALL_EXPRESSION)
+                ->setName("add")
+                ->setParams([
+                    Node::factory(Node::TYPE_CALL_EXPRESSION)
+                        ->setName("subtract")
+                        ->setParams([
+                            Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue(2017),
+                            Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue(6),
+                        ]),
+                    Node::factory(Node::TYPE_NUMBER_LITERAL)->setValue(20),
+                ])
+        );
+
+        $this->assertEquals($root, $ast);
+    }
+
 }
