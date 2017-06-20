@@ -24,4 +24,31 @@ class TokenizerTest extends TestCase {
         ], $tokenes);
     }
 
+    public function testTakeMulti() {
+        $tokenizer = new Tokenizer();
+        $tokenes   = $tokenizer->take(__DIR__."/Fixtures/multi.txt");
+
+        $this->assertEquals([
+            new Token(Token::TYPE_PARENTHESES_OPEN, '('),
+            new Token(Token::TYPE_NAME, 'add'),
+            new Token(Token::TYPE_PARENTHESES_OPEN, '('),
+            new Token(Token::TYPE_NAME, 'subtract'),
+            new Token(Token::TYPE_NUMBER, '2017'),
+            new Token(Token::TYPE_NUMBER, '6'),
+            new Token(Token::TYPE_PARENTHESES_CLOSE, ')'),
+            new Token(Token::TYPE_NUMBER, '19'),
+            new Token(Token::TYPE_PARENTHESES_CLOSE, ')'),
+
+            new Token(Token::TYPE_PARENTHESES_OPEN, '('),
+            new Token(Token::TYPE_NAME, 'add'),
+            new Token(Token::TYPE_PARENTHESES_OPEN, '('),
+            new Token(Token::TYPE_NAME, 'subtract'),
+            new Token(Token::TYPE_NUMBER, '2017'),
+            new Token(Token::TYPE_NUMBER, '6'),
+            new Token(Token::TYPE_PARENTHESES_CLOSE, ')'),
+            new Token(Token::TYPE_NUMBER, '20'),
+            new Token(Token::TYPE_PARENTHESES_CLOSE, ')'),
+        ], $tokenes);
+    }
+
 }
