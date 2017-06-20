@@ -19,4 +19,9 @@ class CallExpression extends NodeType {
         return $this->params;
     }
 
+    public function addParams(NodeType $params) {
+        array_push($this->params, $params);
+        return $this;
+    }
+
 }
