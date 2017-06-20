@@ -6,7 +6,7 @@ use Tonvert\Model\Node;
 
 class ParserTest extends TestCase {
 
-    public function testTake() {
+    public function testParse() {
         $tokenizer = new Tokenizer();
         $tokenes   = $tokenizer->take(__DIR__."/Fixtures/default.txt");
 
