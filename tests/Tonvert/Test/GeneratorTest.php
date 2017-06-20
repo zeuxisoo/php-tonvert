@@ -22,4 +22,16 @@ class GeneratorTest extends TestCase {
         ], $generated);
     }
 
+    public function testGenerateMulti() {
+        $tokenes   = (new Tokenizer())->take(__DIR__."/Fixtures/multi.txt");
+        $ast       = (new Parser())->parse($tokenes);
+        $newAst    = (new Transformer())->transform($ast);
+        $generated = (new Generator())->generate($newAst);
+
+        $this->assertEquals([
+            'add(subtract(2017, 6), 19)',
+            'add(subtract(2017, 6), 20)'
+        ], $generated);
+    }
+
 }
