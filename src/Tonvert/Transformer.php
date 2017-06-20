@@ -18,7 +18,7 @@ class Transformer {
 
     public function transform(NodeType $ast): TransformedNodeType {
         $newAst   = TransformedNode::factory(TransformedNode::TYPE_PROGRAM);
-        $body     = null;
+        $body     = [];
         $visitors = [
             NodeNumberLiteral::class => [
                 static::VISITOR_ENTER => function(NodeType $node, $parent, &$body) {
@@ -77,7 +77,7 @@ class Transformer {
                                             ->setExpression($expression);
 
                             // Update the new ast body once
-                            $body = $expression;
+                            array_push($body, $expression);
                         }
                     }
                 },
@@ -88,7 +88,7 @@ class Transformer {
 
         $this->traverser($ast, $body, $visitors);
 
-        $newAst->addBody($body);
+        $newAst->setBody($body);
 
         return $newAst;
     }
