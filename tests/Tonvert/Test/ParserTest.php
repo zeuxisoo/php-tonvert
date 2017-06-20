@@ -29,7 +29,7 @@ class ParserTest extends TestCase {
                 ])
         );
 
-        $this->assertEquals($root, $ast);
+        $this->assertEquals($ast, $root);
     }
 
     public function testParseMulti() {
@@ -69,7 +69,7 @@ class ParserTest extends TestCase {
                 ])
         );
 
-        $this->assertEquals($root, $ast);
+        $this->assertEquals($ast, $root);
     }
 
 }
