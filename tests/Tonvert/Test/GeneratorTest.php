@@ -17,7 +17,9 @@ class GeneratorTest extends TestCase {
         $newAst    = (new Transformer())->transform($ast);
         $generated = (new Generator())->generate($newAst);
 
-        $this->assertEquals('subtract(2017, "ff68", add(6, 10))', $generated);
+        $this->assertEquals([
+            'subtract(2017, "ff68", add(6, 10))'
+        ], $generated);
     }
 
 }

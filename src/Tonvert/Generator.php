@@ -13,9 +13,9 @@ use Tonvert\Model\TransformedNode\{
 
 class Generator {
 
-    public function generate(TransformedNodeType $node): string {
+    public function generate(TransformedNodeType $node) {
         if ($node instanceof TransformedNodeProgram) {
-            return array_map([$this, 'generate'], $node->getBody())[0];
+            return array_map([$this, 'generate'], $node->getBody());
         }
 
         if ($node instanceof TransformedNodeExpressionStatement) {
